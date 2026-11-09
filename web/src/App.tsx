@@ -20,7 +20,7 @@ const tableComponents: TableComponents<Order> = {
     <tr
       {...props}
       className={`border-b border-slate-800/70 transition-colors hover:bg-slate-800/60 ${
-        order.type === "BID" ? "bg-emerald-500/[0.03]" : "bg-rose-500/[0.03]"
+        order.type === "BID" ? "bg-emerald-500/3" : "bg-rose-500/3"
       }`}
     />
   ),
@@ -69,23 +69,13 @@ function App() {
 
     const intervalId = setInterval(() => {
       if (orderBuffers.current.length === 0) return;
-      console.log("1. Buffer antes: ", orderBuffers.current.length);
 
       const newOrder = orderBuffers.current;
       orderBuffers.current = [];
 
-      console.log("2. Novas ordens: ", newOrder.length);
-      console.log("3. Buffer depois de zerar: ", orderBuffers.current.length);
-
       setOrders((prevOrders) => {
-        console.log("4. Ordens antigas: ", prevOrders.length);
         const combined = [...newOrder, ...prevOrders];
-
-        console.log("5. Combinado: ", combined.length);
-
         const result = combined.slice(0, 50);
-        console.log("6. depois do slice: ", result.length);
-
         return result;
       });
     }, 200);
